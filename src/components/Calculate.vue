@@ -1,10 +1,39 @@
 <script setup>
 
-import { ref, reactive } from 'vue';
-import Display from "./Display.vue"
+import { ref, reactive,defineProps } from 'vue';
+ import Display from "./Display.vue"
 
-const num1 = ref( "");
-const num2 = ref( "");
+const value ={
+    data() {
+        return {
+            num1: ref(""),
+            num2: ref(""),
+            operation: "+",
+            result: null,
+        }
+    },
+    methods: {
+        calculate() {
+            switch (this.operation) {
+                case "+":
+                    this.result = this.num1 + this.num2;
+                    break;
+                case "-":
+                    this.result = this.num1 - this.num2;
+                    break;
+                case "*":
+                    this.result = this.num1 * this.num2;
+                    break;
+                case "/":
+                    this.result = this.num1 / this.num2;
+                    break;
+                    default:
+                        this.result = "Invalid operation"
+            }
+        },
+       
+    },
+}
 
 
 </script>
@@ -20,7 +49,7 @@ const num2 = ref( "");
             <option>/</option>
           </select>
           <input type="number" v-model="num2">
-          <button type="submit">Calculate</button>
-          <p  >Result: {{ num1 }}</p>
+          <button @click="calculate" type="submit">Calculate</button>
+          <p>Result: {{ result }}</p>
         </div>
 </template>
